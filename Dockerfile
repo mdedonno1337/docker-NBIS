@@ -1,4 +1,10 @@
-FROM debian
+################################################################################
+#
+#   Build environnement
+#
+################################################################################
+
+FROM debian as builder
 MAINTAINER Marco De Donno <Marco.DeDonno@unil.ch>
 
 RUN apt update && \
@@ -17,3 +23,17 @@ RUN cd /Rel_5.0.0 && \
 	make config && \
 	make it && \
 	make install
+
+################################################################################
+#
+#   Running environnement
+#
+################################################################################
+
+FROM debian
+MAINTAINER Marco De Donno <Marco.DeDonno@unil.ch>
+
+RUN apt update && \
+    apt upgrade -y
+
+COPY --from=builder /nbis /nbis
