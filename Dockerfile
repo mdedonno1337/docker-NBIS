@@ -30,10 +30,7 @@ RUN cd /Rel_5.0.0 && \
 #
 ################################################################################
 
-FROM debian
+FROM scratch
 MAINTAINER Marco De Donno <Marco.DeDonno@unil.ch>
-
-RUN apt update && \
-    apt upgrade -y
 
 COPY --from=builder /nbis /nbis
