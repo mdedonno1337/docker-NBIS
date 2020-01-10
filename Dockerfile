@@ -7,10 +7,10 @@
 FROM debian as builder
 MAINTAINER Marco De Donno <Marco.DeDonno@unil.ch>
 
-RUN apt update && \
-    apt upgrade -y
+RUN apt-get update && \
+    apt-get upgrade -y
 
-RUN apt install -y unzip build-essential cmake
+RUN apt-get install -y unzip build-essential cmake
 
 COPY ./nbis_v5_0_0.zip /
 
