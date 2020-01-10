@@ -30,7 +30,7 @@ RUN cd /Rel_5.0.0 && \
 #
 ################################################################################
 
-FROM scratch
+FROM debian
 MAINTAINER Marco De Donno <Marco.DeDonno@unil.ch>
 
 COPY --from=builder /nbis /nbis
