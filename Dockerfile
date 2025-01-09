@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-FROM debian as builder
+FROM debian:12 as builder
 MAINTAINER Marco De Donno <Marco.DeDonno@unil.ch>
 
 RUN apt-get update && \
@@ -16,13 +16,14 @@ COPY ./nbis_v5_0_0.zip /
 
 RUN unzip ./nbis_v5_0_0.zip
 
-RUN mkdir /nbis
+COPY ./patches/ /nbis/Rel_5.0.0/patches
 
 RUN cd /Rel_5.0.0 && \
-	./setup.sh /nbis/ --without-X11 --64 && \
-	make config && \
-	make it && \
-	make install
+    ./setup.sh /nbis/ --without-X11 --64 && \
+    make config && \
+    find /nbis/Rel_5.0.0/patches/ -type f -name '*.patch' -print0 | sort -z | xargs -0 -n 1 patch -p1 -i && \
+    make it && \
+    make install
 
 ################################################################################
 #
@@ -30,7 +31,7 @@ RUN cd /Rel_5.0.0 && \
 #
 ################################################################################
 
-FROM debian
+FROM debian:12
 MAINTAINER Marco De Donno <Marco.DeDonno@unil.ch>
 
-COPY --from=builder /nbis /nbis
+COPY --from=builder /nbis/bin /nbis

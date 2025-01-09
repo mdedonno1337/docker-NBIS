@@ -1,0 +1,21 @@
+--- a/an2k/include/histogen.h
++++ b/an2k/include/histogen.h
+@@ -75,8 +75,6 @@ struct histo {
+   HISTO *next;
+ };
+ 
+-HISTO *histo_head;
+-
+ enum {
+   INCLUDE_INVALID_FILES=5,
+   INCLUDE_FIELD_SEPARATORS,
+--- a/an2k/src/bin/histogen/chkfile.c
++++ b/an2k/src/bin/histogen/chkfile.c
+@@ -77,6 +77,7 @@ of the software.
+ #include <ctype.h>
+ 
+ #include "histogen.h"
++HISTO *histo_head;
+ 
+ extern char *basename(const char *);
+ extern FILE *fp_histo_log;
